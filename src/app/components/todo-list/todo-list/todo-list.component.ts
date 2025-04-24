@@ -10,9 +10,14 @@ import { AsyncPipe, CommonModule, NgClass, NgFor } from '@angular/common';
 import { TodoFormComponent } from '../../todo-form/todo-form.component';
 import { Todo } from '../../../store/models/todo.model';
 import { AppState } from '../../../store/app.state';
-import { deleteTodo, toggleTodo, updateTodo } from '../../../store/actions/todo.actions';
+import {
+  deleteTodo,
+  toggleTodo,
+  updateTodo,
+} from '../../../store/actions/todo.actions';
 import { TodoEditDialogComponent } from '../../todo-edit-dialog/todo-edit-dialog.component';
 import { selectAllTodos } from '../../../store/selectors/todo.selectors';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-todo-list',
@@ -21,6 +26,7 @@ import { selectAllTodos } from '../../../store/selectors/todo.selectors';
     CommonModule,
     TodoFormComponent,
     TodoEditDialogComponent,
+    RouterModule,
     MatCardModule,
     MatListModule,
     MatButtonModule,
@@ -28,15 +34,19 @@ import { selectAllTodos } from '../../../store/selectors/todo.selectors';
     MatDialogModule,
     AsyncPipe,
     NgClass,
-    NgFor
+    NgFor,
   ],
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss']
+  styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent {
   todos$: Observable<Todo[]>;
 
-  constructor(private store: Store<AppState>, private dialog: MatDialog) {
+  constructor(
+    private store: Store<AppState>,
+    private router: Router,
+    private dialog: MatDialog
+  ) {
     this.todos$ = this.store.select(selectAllTodos);
   }
 
@@ -49,15 +59,21 @@ export class TodoListComponent {
   }
 
   editTodo(todo: Todo) {
+    console.log("🚀 ~ TodoListComponent ~ todo:", todo)
     const dialogRef = this.dialog.open(TodoEditDialogComponent, {
       width: '500px',
-      data: { ...todo }
+      data: { ...todo },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.store.dispatch(updateTodo({ id: todo.id, todo: result }));
       }
     });
+  }
+
+  viewTodo(id: string) {
+    console.log('View Todo:', id);
+    this.router.navigate(['/todo', id]);
   }
 }
