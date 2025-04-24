@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
     RouterOutlet,
     MatToolbarModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']

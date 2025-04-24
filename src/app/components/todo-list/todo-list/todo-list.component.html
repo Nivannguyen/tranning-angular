@@ -1,0 +1,32 @@
+<app-todo-form></app-todo-form>
+<mat-card class="todo-list-card">
+  <mat-card-header>
+    <mat-card-title>Todo List</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let todo of todos$ | async" class="todo-item">
+        <div class="todo-row" style="display: flex;">
+          <div class="todo-content">
+            <span class="todo-title" [ngClass]="{'completed': todo.completed}">{{ todo.title }}</span>
+            <span class="todo-description">{{ todo.description }}</span>
+          </div>
+          <div class="todo-actions">
+            <button mat-icon-button color="primary" (click)="editTodo(todo)" matTooltip="Edit Todo">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" (click)="toggleTodo(todo.id)" matTooltip="Toggle Completion">
+              <mat-icon>{{ todo.completed ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteTodo(todo.id)" matTooltip="Delete Todo">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-list-item>
+      <mat-list-item *ngIf="(todos$ | async)?.length === 0">
+        <span class="no-todos">No todos yet. Add one above!</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
