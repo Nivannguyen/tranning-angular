@@ -3,13 +3,11 @@ import { provideRouter, Routes } from '@angular/router';
 
 import { provideStore } from '@ngrx/store';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { TodoListComponent } from './components/todo-list/todo-list/todo-list.component';
 import { todoReducer } from './store/reducers/todo.reducer';
-import { TodoDetailComponent } from './components/todo-detail/todo-detail.component';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
-  { path: '', component: TodoListComponent },
-  { path: 'todo/:id', component: TodoDetailComponent },
+  { path: '', component: AppComponent },
   { path: '**', redirectTo: '' },
 ];
 
