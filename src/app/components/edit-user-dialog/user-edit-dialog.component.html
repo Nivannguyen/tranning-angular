@@ -1,0 +1,75 @@
+<mat-card class="edit-user-card">
+  <mat-card-header>
+    <mat-card-title>Edit User</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="edit-user-form">
+      <div class="edit-user-form-row" style="display: flex; gap: 16px;">
+        <mat-form-field appearance="fill" class="edit-user-field" style="width:100%; margin-bottom:28px;">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstname" highlightInvalid>
+          <mat-error *ngIf="userForm.get('firstname')?.hasError('required')">
+            First name is required
+          </mat-error>
+          <mat-error *ngIf="userForm.get('firstname')?.hasError('minlength')">
+            At least 2 characters
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="edit-user-field" style="width:100%; margin-bottom:28px;">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastname" highlightInvalid>
+          <mat-error *ngIf="userForm.get('lastname')?.hasError('required')">
+            Last name is required
+          </mat-error>
+          <mat-error *ngIf="userForm.get('lastname')?.hasError('minlength')">
+            At least 2 characters
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="edit-user-form-row">
+        <mat-form-field appearance="fill" class="edit-user-field" style="width:100%; margin-bottom:28px;">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" highlightInvalid>
+          <mat-error *ngIf="userForm.get('email')?.hasError('required')">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="userForm.get('email')?.hasError('email')">
+            Please enter a valid email
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="edit-user-form-row">
+        <mat-form-field appearance="fill" class="edit-user-field" style="width:100%; margin-bottom:28px;">
+          <mat-label>Age</mat-label>
+          <input matInput type="number" formControlName="age" highlightInvalid>
+          <mat-error *ngIf="userForm.get('age')?.hasError('required')">
+            Age is required
+          </mat-error>
+          <mat-error *ngIf="userForm.get('age')?.hasError('min')">
+            Age must be at least 18
+          </mat-error>
+          <mat-error *ngIf="userForm.get('age')?.hasError('max')">
+            Age cannot exceed 100
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="edit-user-form-row">
+        <mat-form-field appearance="fill" class="edit-user-field" style="width:100%; margin-bottom:28px;">
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="gender" highlightInvalid>
+            <mat-option value="male">Male</mat-option>
+            <mat-option value="female">Female</mat-option>
+            <mat-option value="other">Other</mat-option>
+          </mat-select>
+          <mat-error *ngIf="userForm.get('gender')?.hasError('required')">
+            Gender is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <mat-card-actions class="edit-user-actions">
+        <button mat-button type="button" (click)="onCancel()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">Save</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>

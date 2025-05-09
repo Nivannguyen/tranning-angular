@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { provideEffects } from '@ngrx/effects';
 import { loadUsers$ } from './store/effects/user.effects';
 import { UserListComponent } from './components/user-list/user-list.component';
+import * as UserEffects from './store/effects/user.effects';
 import { provideHttpClient } from '@angular/common/http';
 const routes: Routes = [
   { path: '', component: AppComponent },
@@ -20,7 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimations(),
     provideStore({ users: userReducer }),
-    provideEffects({ loadUsers$: loadUsers$ }),
+    provideEffects(UserEffects),
     provideHttpClient()
   ],
 };
