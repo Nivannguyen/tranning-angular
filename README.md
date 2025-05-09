@@ -1,27 +1,35 @@
 # MyAngularApp
+- Hiển thị angular material table - fake data
+- Setup rxjs store
+- Call api - render list employees
+- 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.18.
+Tạo ứng dụng Angular 18 (ko có app.module.ts) hiển thị danh sách users nằm trong components folder ra material angular UI,
+Call api từ mockapi.io, https://681ac46717018fe50578a9b1.mockapi.io/api/v1/users
+có cột name, avatar, email, age, gender, created, updated, action
+- Sử dụng rxjs tổ chức có folder như sau
+store ( actions, models, reducers, selectors )
 
-## Development server
+Sử dụng SASS để làm UI đẹp
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+- Thêm cột checkbox - Select all
+- Thêm sort column table ( toSignal )
+- Viết custom pipe cho data column
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# 9/5/2025
+On Table create column Action( Edit, Delete )
 
-## Build
+Click Edit: Show popup (use popup material)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Name (Requried)
 
-## Running unit tests
+Age ( Use drirective for only allow enter number)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Email(Validate email)
 
-## Running end-to-end tests
+Action:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Yes: → Edit user, Reload table
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+No → close popup, clear input form

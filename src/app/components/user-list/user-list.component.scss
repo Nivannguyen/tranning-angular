@@ -1,0 +1,51 @@
+mat-card {
+    padding: 20px;
+    margin: 20px;
+    background-color: #fafafa;
+  
+    h2 {
+      margin-bottom: 20px;
+    }
+  
+    .loading {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+  
+    table {
+      width: 100%;
+      th, td {
+        text-align: left;
+      }
+  
+      img {
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .connection__loading-skeleton {
+    padding: 8px;
+  }
+  
+  .skeleton-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .skeleton-cell {
+    flex: 1;
+    height: 16px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    animation: pulse 1.2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+  }
+  

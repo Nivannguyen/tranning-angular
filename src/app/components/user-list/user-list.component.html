@@ -1,0 +1,89 @@
+<mat-card>
+  <h2>Danh sách người dùng</h2>
+
+  <!-- Skeleton loading -->
+  <ng-container *ngIf="loading$ | async; else userTable">
+    <div class="connection__loading-skeleton">
+      <div *ngFor="let i of [].constructor(3); let iIdx = index" class="skeleton-row">
+        <span *ngFor="let col of displayedColumns" class="skeleton-cell"></span>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Bảng người dùng -->
+  <ng-template #userTable>
+    <ng-container *ngIf="users$ | async as users">
+      <table mat-table [dataSource]="users" class="mat-elevation-z8">
+        <!-- Avatar -->
+        <ng-container matColumnDef="avatar">
+          <th mat-header-cell *matHeaderCellDef>Avatar</th>
+          <td mat-cell *matCellDef="let user">
+            <img [src]="user | displayUserData:'avatar'" alt="Avatar" width="50" height="50" />
+          </td>
+        </ng-container>
+
+        <!-- Họ tên -->
+        <ng-container matColumnDef="fullname">
+          <th mat-header-cell *matHeaderCellDef>Fullname</th>
+          <td mat-cell *matCellDef="let user">{{ user | displayUserData:'fullname' }}</td>
+        </ng-container>
+
+        <!-- Email -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let user">{{ user | displayUserData:'email' }}</td>
+        </ng-container>
+
+        <!-- Tuổi -->
+        <ng-container matColumnDef="age">
+          <th mat-header-cell *matHeaderCellDef>Age</th>
+          <td mat-cell *matCellDef="let user">{{ user | displayUserData:'age' }}</td>
+        </ng-container>
+
+        <!-- Giới tính -->
+        <ng-container matColumnDef="gender">
+          <th mat-header-cell *matHeaderCellDef>Gender</th>
+          <td mat-cell *matCellDef="let user">{{ user | displayUserData:'gender' }}</td>
+        </ng-container>
+
+        <!-- Ngày tạo -->
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef>Created</th>
+          <td mat-cell *matCellDef="let user">
+            {{ user | displayUserData:'createdAt' | date:'dd/MM/yyyy' }}
+          </td>
+        </ng-container>
+
+        <!-- Ngày cập nhật -->
+        <ng-container matColumnDef="updatedAt">
+          <th mat-header-cell *matHeaderCellDef>Updated</th>
+          <td mat-cell *matCellDef="let user">
+            {{ user | displayUserData:'updatedAt' | date:'dd/MM/yyyy' }}
+          </td>
+        </ng-container>
+
+        <!-- Hành động -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let user">
+            <button mat-button color="primary">Xem</button>
+          </td>
+        </ng-container>
+
+        <!-- Header và row -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+        <!-- Trường hợp không có dữ liệu -->
+        <tr *matNoDataRow>
+          <td [attr.colspan]="displayedColumns.length">
+            <div class="empty-record">
+              <mat-icon class="empty-icon">inbox</mat-icon>
+              <p class="empty-text">Empty</p>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </ng-container>
+  </ng-template>
+</mat-card>
